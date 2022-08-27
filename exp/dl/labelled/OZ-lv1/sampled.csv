@@ -1,0 +1,49 @@
+IERC721	onERC721Received
+EnumerableMap	_at	$Cmp($Literal(index), $Literal({length}), LT)
+EnumerableMap	at	$Cmp($Literal(index), $Literal({length}), LT)
+EnumerableSet	_at	$Cmp($Literal(index), $Literal({length}), LT)
+EnumerableSet	at	$Cmp($Literal(index), $Literal({length}), LT)
+ERC1155	_beforeTokenTransfer	amount
+ERC1155	_beforeTokenTransfer	id
+ERC1155Pausable	_beforeTokenTransfer	amount
+ERC1155Pausable	_beforeTokenTransfer	id
+ERC1155Supply	_beforeTokenTransfer	amount
+ERC1155Supply	_beforeTokenTransfer	id
+ERC20	_transfer	recipient
+ERC20	_transfer	sender
+ERC2981	_setTokenRoyalty	$Literal(_minted(tokenId))
+ERC721	_baseURI	tokenId
+ERC721Royalty	_burn	$Literal(_exists(tokenId))
+ERC721	_safeMint	data
+ERC721	safeTransferFrom	$Cmp($Literal(from), $Literal(address(0)), NEQ)
+ERC721	_safeTransfer	$Cmp($Literal(from), $Literal(address(0)), NEQ)
+ERC721	transferFrom	$Cmp($Literal(from), $Literal(address(0)), NEQ)
+ERC777	burn	operatorData
+ERC777	_mint	data
+ERC777	_mint	operator
+ERC777	send	operatorData
+IERC1820Registry	getInterfaceImplementer	interfaceHash
+IERC1820Registry	setInterfaceImplementer	interfaceHash
+IERC777	burn	operatorData
+IERC777	send	operatorData
+SafeMath	div	$Cmp($Literal(divisor), $Literal(0), NEQ)
+SafeMath	mod	$Cmp($Literal(divisor), $Literal(0), NEQ)
+SignedSafeMath	div	$Cmp($Literal(divisor), $Literal(0), NEQ)
+VestingWallet	release	TokensReleased	$Bool(True)
+ERC3156FlashBorrower	onFlashLoan
+ERC721	_burn	$Literal(_exists(tokenId))
+ERC721	ownerOf	$Literal(_exists(tokenId))
+ERC721	_safeTransfer	$Literal(_exists(tokenId))
+ERC721	approve	$Literal(_exists(tokenId))
+ERC721URIStorage	_burn	$Literal(_exists(tokenId))
+ERC20   _burn   to
+ERC777  _approve        amount
+ERC777  _approve        $Cmp($Literal(owner), $Literal(address(0)), NEQ)
+GovernorCountingSimple  COUNTING_MODE   support
+IGovernor       COUNTING_MODE   support
+ERC777  _approve        owner
+ERC20   _mint   from
+ERC1155 _burn   $Cmp($Literal(from), $Literal(amount), GEQ)
+ERC20Capped     _mint   from
+EnumerableMap	myMap
+EnumerableSet	mySet

@@ -1,0 +1,8 @@
+time python3 main.py --lib dapphub/ds-stop --version HEAD --extract-doc ../library-src/DappHub/ds-stop/README.md
+time python3 main.py --lib dapphub/ds-cache --version HEAD --extract-doc ../library-src/DappHub/ds-cache/README.md
+time python3 main.py --lib dapphub/ds-chief --version HEAD --extract-doc ../library-src/DappHub/ds-chief/README.md
+time python3 main.py --lib dapphub/ds-token --version HEAD --extract-doc ../library-src/DappHub/ds-token/README.md
+time python3 main.py --lib dapphub/ds-guard --version HEAD --extract-doc ../library-src/DappHub/ds-guard/README.md
+time python3 main.py --lib dapphub/ds-roles --version HEAD --extract-doc ../library-src/DappHub/ds-roles/README.md
+time python3 main.py --lib dapphub/ds-math --version HEAD --extract-doc ../library-src/DappHub/ds-math/README.md
+time python3 main.py --lib dapphub/ds-auth --version HEAD --extract-doc ../library-src/DappHub/ds-auth/README.md

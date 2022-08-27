@@ -1,0 +1,10 @@
+#include "../def.dl"
+
+
+.decl RequireBin(f: Fn, x: Expr, y: Expr, op: BinCmp)  /* Function f contains require and the condition is x op y */
+
+/* Propogate along the call chain 
+require(auxf1(x) op auxf2(y)) 
+*/
+RequireBin(fa, "auxf1(v_in_fa, m)", "auxf2()", op) :- RequireBin(fb, "auxf1(param1, m)", "auxf2(param2)", "LT"), Call(fa, fb, "v_in_fa", "param1").
+RequireBin(fa, x, y, op) :- RequireBin(fb, m, _), Call(fa, fb, v, p) 

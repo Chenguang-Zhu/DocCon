@@ -1,0 +1,60 @@
+/** Copyright 2022 wuxhme (at) gmail.com 
+ * Expand facts for fuzzy matching l1err
+ */
+#pragma once
+#include "../def.dl"
+#include "../def-functors.dl"
+
+
+// for a code fact containing comparison of xyzBalance and some other variable,
+// allow xyzBalance to match with xyz_balance, given xyz is a param of the involving function.
+C_Require(c, f, $Cmp($Literal(cat(v, "_balance")), b, op)) :- C_Require(c, f, $Cmp($Literal(cat(v, "Balance")), b, op)), C_HasParam(c, f, v).
+ 
+//C_Require(c, f, $Cmp($Literal(cat(v, "_allowance")), b, op)) :- C_Require(c, f, $Cmp($Literal(cat(v, "Allowance")), b, op)), C_HasParam(c, f, v).
+ 
+C_Require(c, f, $Cmp($Literal(param_name), b, op)) :- C_Require(c, f, $Cmp($Literal("currentAllowance"), b, op)), C_HasParam(c, f, p), param_name=cat(p, "_allowance"). 
+    
+// for x >= y, genereate y <= x
+C_Require(c, f, $Cmp(a, b, "GEQ")) :- C_Require(c, f, $Cmp(b, a, "LEQ")).
+C_Require(c, f, $Cmp(a, b, "LEQ")) :- C_Require(c, f, $Cmp(b, a, "GEQ")).
+C_Require(c, f, $Cmp(a, b, "LT")) :- C_Require(c, f, $Cmp(b, a, "GT")).
+C_Require(c, f, $Cmp(a, b, "GT")) :- C_Require(c, f, $Cmp(b, a, "LT")).
+C_Require(c, f, $Cmp(a, b, "NEQ")) :- C_Require(c, f, $Cmp(b, a, "NEQ")).
+C_Require(c, f, $Cmp(a, b, "EQ")) :- C_Require(c, f, $Cmp(b, a, "EQ")).
+
+
+C_Require(c, f, $Literal(full)) :- C_Require(c, f, $Literal(simple)), C_HasFn(c, f), C_HasParam(c, f, p),
+    full=cat(cat(cat(cat(cat(c, "."), f), "("),p), ")"), simple=cat(cat(cat(f, "("), p), ")").
+
+// for a code fact containing a function application, 
+// generate a same fact using the contract_name.function_name format
+// e.g., Require(ERC721, _transfer, $Cmp($Literal(ERC721.ownerOf(tokenId)), $Literal(from), EQ)).
+// lead to: Require(ERC721, _transfer, $Cmp($Literal(ownerOf(tokenId)), $Literal(from), EQ)).
+// under the condition: HasFn(ERC721, ownerOf), HasParam(ERC721, _transfer, tokenId)
+C_Require(c, f, $Cmp($Literal(simple), b, op)) :- C_Require(c, f, $Cmp($Literal(full), b, op)), C_HasFn(c, fOther), C_HasParam(c, f, p),
+    full=cat(cat(cat(cat(cat(c, "."), fOther), "("),p), ")"), simple=cat(cat(cat(fOther, "("), p), ")").
+
+C_Require(c, f, $Cmp(a, $Literal(simple), op)) :- C_Require(c, f, $Cmp(a, $Literal(full), op)), C_HasFn(c, fOther), C_HasParam(c, f, p),
+    full=cat(cat(cat(cat(cat(c, "."), fOther), "("),p), ")"), simple=cat(cat(cat(fOther, "("), p), ")").
+
+
+
+// if a code fact says must/might emit, we can also say it might emit.
+C_Emit(c, f, ev, $Bool("True")) :- C_Emit(c, f, ev, _).
+
+// if a code fact says might/must emit, we can also say it may emit.
+C_Emit(c, f, ev, $Literal("")) :- C_Emit(c, f, ev, _).
+
+
+// if a code fact uses "owner" inside expr, we generate a same code fact
+// but replace "owner" with "the caller"
+C_Require(c, f, $Cmp(a, $Literal("the caller"), op)) :- C_Require(c, f, $Cmp(a, $Literal("owner"), op)).
+
+C_Require(c, f, $Cmp($Literal("the caller"), b, op)) :- C_Require(c, f, $Cmp($Literal("owner"), b, op)).
+
+// if a code facts is HasFn(ContractA, constructor),
+// we also generate a HasFn(ContractA, ContractA),
+// i.e. the constructor has the same name with the class.
+C_HasFn(c, cat(c,"")) :- C_HasFn(c, "constructor").
+
+C_FnHasMod(c, f, as(@lower(m), Mod)) :- C_FnHasMod(c, f, m).

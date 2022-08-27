@@ -1,0 +1,42 @@
+/** Copyright 2022 wuxhme (at) gmail.com 
+ * Expand facts for fuzzy matching l1err
+ */
+#pragma once
+#include "../def.dl"
+
+D_Require(c, f, $Cmp($Literal(codename), b, op)) :- D_Require(c, f, $Cmp($Literal(docname), b, op)), C_HasParam(c, f, p),
+    codename=cat(p, "Balannce"), docname=cat(p, "_balance").
+ 
+D_Require(c, f, $Cmp(a, b, "GEQ")) :- D_Require(c, f, $Cmp(b, a, "LEQ")).
+D_Require(c, f, $Cmp(a, b, "LEQ")) :- D_Require(c, f, $Cmp(b, a, "GEQ")).
+D_Require(c, f, $Cmp(a, b, "LT")) :- D_Require(c, f, $Cmp(b, a, "GT")).
+D_Require(c, f, $Cmp(a, b, "GT")) :- D_Require(c, f, $Cmp(b, a, "LT")).
+D_Require(c, f, $Cmp(a, b, "NEQ")) :- D_Require(c, f, $Cmp(b, a, "NEQ")).
+D_Require(c, f, $Cmp(a, b, "EQ")) :- D_Require(c, f, $Cmp(b, a, "EQ")).
+
+D_Require(c, f, $Literal(simple)) :- D_Require(c, f, $Literal(full)), C_HasFn(c, f), C_HasParam(c, f, p),
+    full=cat(cat(cat(cat(cat(c, "."), f), "("),p), ")"), simple=cat(cat(cat(f, "("), p), ")").
+
+D_Require(c, f, $Cmp($Literal(full), b, op)) :- D_Require(c, f, $Cmp($Literal(simple), b, op)), C_HasFn(c, fOther), C_HasParam(c, f, p),
+    full=cat(cat(cat(cat(cat(c, "."), fOther), "("),p), ")"), simple=cat(cat(cat(fOther, "("), p), ")").
+
+D_Require(c, f, $Cmp(a, $Literal(full), op)) :- D_Require(c, f, $Cmp(a, $Literal(simple), op)), C_HasFn(c, fOther), C_HasParam(c, f, p),
+    full=cat(cat(cat(cat(cat(c, "."), fOther), "("),p), ")"), simple=cat(cat(cat(fOther, "("), p), ")").
+
+D_Require(c, f, $Cmp($Literal(codename), b, op)) :- D_Require(c, f, $Cmp($Literal(p), b, op)), C_HasParam(c, f, p), codename=cat(p, "Balance"). 
+
+D_Emit(c, f, ev, $Bool("True")) :- D_Emit(c, f, ev, _).
+
+D_Emit(c, f, ev, $Literal("")) :- D_Emit(c, f, ev, _).
+
+// if a doc facts uses "the caller" inside expr, we generate a same doc fact
+// but replace "the caller" with "owner"
+D_Require(c, f, $Cmp(a, $Literal("owner"), op)) :- D_Require(c, f, $Cmp(a, $Literal("the caller"), op)).
+
+D_Require(c, f, $Cmp($Literal("owner"), b, op)) :- D_Require(c, f, $Cmp($Literal("the caller"), b, op)).
+
+// Propogate D_Require/3 along the C_Inherit/2 chain; overestimate, do not consider private
+// if cb inherit ca, then for each ca.f, we suppose cb.f exist and has the same requirements
+// D_Require(cb, f, cond) :- D_Require(ca, f, cond), C_Inherit(ca, cb), !C_Override(ca, f, cb, f).
+// D_Emit(cb, f, ev, cond) :- D_Emit(ca, f, ev, cond), C_Inherit(ca, cb), !C_Override(ca, f, cb, f).
+// D_Revert(cb, f, cond) :- D_Revert(ca, f, cond), C_Inherit(ca, cb), !C_Override(ca, f, cb, f).

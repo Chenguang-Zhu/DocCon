@@ -1,0 +1,64 @@
+#!/bin/bash
+
+### --- Extract ---
+# time python main.py --lib openzeppelin --version v4.6.0-rc.0 --extract-doc ../exp/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol
+# time python main.py --lib openzeppelin --version v4.6.0-rc.0 --extract-doc ../exp/openzeppelin-contracts/contracts/token/common/ERC2981.sol
+# time python main.py --lib openzeppelin --version v4.6.0-rc.0 --extract-doc ../exp/openzeppelin-contracts/contracts/utils/structs/EnumerableMap.sol
+# time python main.py --lib openzeppelin --version v4.6.0-rc.0 --extract-doc ../exp/openzeppelin-contracts/contracts/utils/math/SafeMath.sol
+# time python main.py --lib openzeppelin --version v4.6.0-rc.0 --extract-doc ../exp/openzeppelin-contracts/contracts/token/ERC721/IERC721Receiver.sol
+# time python main.py --lib openzeppelin --version v4.6.0-rc.0 --extract-doc ../exp/openzeppelin-contracts/contracts/governance/Governor.sol
+# time python main.py --lib openzeppelin --version v4.6.0-rc.0 --extract-doc ../exp/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol
+# time python main.py --lib openzeppelin --version v4.6.0-rc.0 --extract-doc ../exp/openzeppelin-contracts/contracts/token/ERC1155/ERC1155.sol
+# time python main.py --lib openzeppelin --version v4.6.0-rc.0 --extract-doc ../exp/openzeppelin-contracts/contracts/token/ERC1155/extensions/ERC1155Supply.sol
+# time python main.py --lib openzeppelin --version v4.6.0-rc.0 --extract-doc ../exp/openzeppelin-contracts/contracts/interfaces/IERC3156FlashBorrower.sol
+# time python main.py --lib openzeppelin --version v4.6.0-rc.0 --extract-doc ../exp/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20FlashMint.sol
+
+### --- Detected LV1 ---
+### Inconsis No.1
+# time python main.py --version 4.6.0-rc.0 --lib openzeppelin --version v4.6.0-rc.0 --extract-doc ../exp/openzeppelin-contracts/contracts/token/common/ERC2981.sol 
+# time python main.py --lib openzeppelin --version v4.6.0-rc.0 --check --contract ERC2981 --func _setTokenRoyalty --level 1
+
+### Inconsis No.2
+# time python main.py --lib openzeppelin --version v4.5.0 --extract-doc ../exp/openzeppelin-contracts/contracts/token/ERC721/IERC721Receiver.sol
+# time python main.py --lib openzeppelin --version v4.5.0 --check --contract IERC721 --level 1
+
+### Inconsis No.8
+# time python main.py --lib openzeppelin --version v4.6.0-rc.0 --extract-doc ../exp/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol
+# time python main.py --lib openzeppelin --version v4.6.0-rc.0 --check --contract ERC20 --level 1
+
+### Inconsis No.11
+# time python main.py --lib openzeppelin --version v4.6.0-rc.0 --extract-doc ../exp/openzeppelin-contracts/contracts/utils/structs/EnumerableMap.sol
+# time python main.py --lib openzeppelin --version v4.6.0-rc.0 --check --contract EnumerableMap --level 1
+
+### Inconsis No.4 ?
+# time python main.py --lib openzeppelin --version v4.6.0-rc.0 --extract-doc ../exp/openzeppelin-contracts/contracts/governance/Governor.sol
+# time python main.py --lib openzeppelin --version v4.6.0-rc.0 --check --contract Governor --level 2
+
+### Inconsis No.5 ?
+# time python main.py --lib openzeppelin --version v4.6.0-rc.0 --extract-doc ../exp/openzeppelin-contracts/contracts/governance/Governor.sol
+# time python main.py --lib openzeppelin --version v4.6.0-rc.0 --check --contract Governor --level 3
+
+### Inconsis No.9 ?
+# time python main.py --lib openzeppelin --version v4.6.0-rc.0 --extract-doc ../exp/openzeppelin-contracts/contracts/token/ERC1155/ERC1155Supply.sol
+# time python main.py --lib openzeppelin --version v4.6.0-rc.0 --check --contract ERC1155Supply --level 2
+
+### Inconsis No.10 ?
+# time python main.py --lib openzeppelin --version v4.6.0-rc.0 --extract-doc ../exp/openzeppelin-contracts/contracts/token/ERC1155/extensions/ERC1155Supply.sol
+# time python main.py --lib openzeppelin --version v4.6.0-rc.0 --check --contract ERC1155Supply --level 2
+
+# ==========================================
+
+time python main.py --lib dapphub/ds-stop --version HEAD --extract-doc ../exp/dapphub/ds-stop/README.md
+time python main.py --lib dapphub/ds-cache --version HEAD --extract-doc ../exp/dapphub/ds-cache/README.md
+time python main.py --lib dapphub/ds-chief --version HEAD --extract-doc ../exp/dapphub/ds-chief/README.md
+time python main.py --lib dapphub/ds-token --version HEAD --extract-doc ../exp/dapphub/ds-token/README.md
+time python main.py --lib dapphub/ds-guard --version HEAD --extract-doc ../exp/dapphub/ds-guard/README.md
+time python main.py --lib dapphub/ds-roles --version HEAD --extract-doc ../exp/dapphub/ds-roles/README.md
+time python main.py --lib dapphub/ds-math --version HEAD --extract-doc ../exp/dapphub/ds-math/README.md
+time python main.py --lib dapphub/ds-auth --version HEAD --extract-doc ../exp/dapphub/ds-auth/README.md
+
+find ../exp/doc_facts/dapphub/ -name "*.json" | xargs cat
+
+# ==========================================
+
+

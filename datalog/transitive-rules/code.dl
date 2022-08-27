@@ -1,0 +1,83 @@
+/** Copyright 2022 wuxhme (at) gmail.com 
+ *  Transitive rules for documentation facts
+ */
+
+#pragma once
+#include "../def.dl"
+
+/* Transitive closure of the *call* chain.
+   If:
+     + ~fx()~ calls ~fy()~, actual arguments ~[ex]~ matching param list ~[vy]~,
+     + ~fy()~ calls ~fz()~, actual arguments ~[ey]~ matching param list ~[vz]~.
+   Then:
+     => ~fx()~ calls ~fz()~ indirectly, with arguments [?] matching param list ~[vz]~.
+   
+   #FIXME: as we do not know the relations between vy and ey, 
+     accurate substitutions is impossible
+*/
+C_Call(cx, fx, nil, cz, fz, vz) :- C_Call(cx, fx, _, cy, fy, _), C_Call(cy, fy, _, cz, fz, vz).
+
+/* Transitive closure of the *revert* chain.
+   If:
+     + ~fy()~ reverts under condition ~e~
+     + ~fx()~ calls ~fy()~, actual arguments ~[ex]~ matching param list ~[vy]~,
+   Then:
+     => ~fx()~ also reverts under condition ~e~ 
+  #FIXME: need specialized rules for handling scenarios where condition substitution needed
+*/
+C_Revert(cx, fx, e) :- C_Call(cx, fx, _, cy, fy, _), C_Revert(cy, fy, e).
+
+/* #FIXME: may remove this special rule
+Revert w/ unknown condition
+*/
+C_Revert(cx, fx, $Literal("")) :- C_Revert(cy, fy, $Literal("")), C_Call(cx, fx, _, cy, fy, _).
+
+/* Transitive closure of the *emit* chain.
+   If:
+     + ~fy()~ emit event ~ev~ under condition ~e~
+   Then:
+     => ~fx()~ also emits event ~ev~ under condition ~e~ 
+   #FIXME: need specialized rules for handling scenarios where condition substitution needed
+*/
+C_Emit(cx, fx, ev, e) :- C_Emit(cy, fy, ev, e), C_Call(cx, fx, _, cy, fy, _). 
+
+/* #FIXME: may remove these special rules */
+/* Always Emit */
+C_Emit(cx, fx, ev, $Bool(True)) :- C_Emit(cy, fy, ev, $Bool(True)), C_Call(cx, fx, _, cy, fy, _). 
+/* Might emit */
+C_Emit(cx, fx, ev, $Literal("")) :- C_Emit(cy, fy, ev, $Literal("")), C_Call(cx, fx, _, cy, fy, _).
+
+
+/* Transitive closure of the *require* chain.
+   If:
+     + ~fy()~ require condition e to be true
+     + ~fx()~ calls ~fy()~, actual arguments ~[ex]~ matching param list ~[vy]~,
+   Then:
+     => ~fx()~ also requires condition ~e~ to be true 
+   #FIXME: need specialized rules for handling scenarios where condition substitution needed
+*/
+C_Require(cx, fx, e) :- C_Require(cy, fy, e), C_Call(cx, fx, _, cy, fy, _).
+
+/* HasFn/2 propogates along inheritance chain.
+  If:
+    + contract ~cb~ has function ~f~
+    + contract ~ca~ inherit ~cb~
+    + ~f~ does not have a "private" modifier
+  Then:
+    => contract ~ca~ also has function ~f~
+*/
+// C_HasFn(ca, f) :- C_Inherit(ca, cb), C_HasFn(cb, f), !C_FnHasMod(cb, f, "private").
+
+C_Inherit(a, c) :- C_Inherit(a, b), C_Inherit(b, c).
+C_Override(ca, fa, cc, fc) :- C_Override(ca, fa, cb, fb), C_Override(cb, fb, cc, fc).
+/// This propogation can prevent errornous C_NotExistFunc entries under the circumstances of multi-inheritance
+/// if (1) c inherit a, b; (2) b inherit a; (3) c.f override a.f ; then => c.f also override b.f
+/// This rule could be problematic so we do not use it for now. Need more investigation.
+// C_Override(b, f, c, f) :- C_Inherit(a, b), C_Inherit(a, c), C_Inherit(b, c), C_Override(a, f, c, f).
+
+.decl C_NotExistFunc(c: Ct, f: Fn)
+// e.g., HasFn(GovernorTimelockControl, _updateTimelock), HasFn(MyGovernor1, _updateTimelock)
+// Inherit(GovernorTimelockControl, MyGovernor1), 
+// and !Override(GovernorTimelockControl, _updateTimelock, MyGovernor1, _updateTimelock)
+C_NotExistFunc(c, f) :- C_HasFn(c, f), C_HasFn(csuper, f), C_Inherit(csuper, c), !C_Override(csuper, f, c, f).
+

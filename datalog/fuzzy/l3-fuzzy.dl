@@ -1,0 +1,16 @@
+/** Copyright 2022 wuxhme (at) gmail.com 
+ * Expand docfacts for fuzzy matching l3err
+ */
+#pragma once
+
+// From HasParam infer HasFn
+// D_HasFn(c, f) :- D_HasParam(c, f, _).
+
+// cb is subclass of ca; overesitmate, do not consider private
+// D_HasFn(cb, f) :- D_HasFn(ca, f), C_Inherit(ca, cb).
+
+// if a doc facts is HasFn(ContractA, ContractA),
+// we also generate a HasFn(ContractA, constructor),
+// i.e. the constructor has the same name with the class.
+D_HasFn(c, "constructor") :- D_HasFn(c, cat(c,"")).
+

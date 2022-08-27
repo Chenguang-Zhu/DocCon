@@ -1,0 +1,78 @@
+/** Copyright 2022 wuxhme (at) gmail.com  
+ *  Transitive rules for documentation facts
+ */
+
+#pragma once
+
+/* Transitive closure of the *call* chain.
+   If:
+     + ~fx()~ calls ~fy()~ 
+     + ~fy()~ calls ~fz()~
+   Then:
+     => ~fx()~ calls ~fz()~ indirectly 
+    In DocFacts, we do not care about details such as parameters
+*/
+// currently no D_Call facts
+//D_Call(fx, fz) :- D_Call(fx, fy), D_Call(fy, fz).
+
+/* Transitive closure of the *revert* chain.
+   If:
+     + ~fy()~ reverts under condition ~e~
+     + ~fx()~ calls ~fy()~
+   Then:
+     => ~fx()~ also reverts under condition ~e~ 
+*/
+// currently no D_Call facts
+//D_Revert(fx, e) :- D_Call(fx, fy), D_Revert(fy, e).
+
+/* Transitive closure of the *emit* chain.
+   If:
+     + ~fy()~ emit event ~ev~ under condition ~e~
+   Then:
+     => ~fx()~ also emits event ~ev~ under condition ~e~ 
+   For doc, we usually do not know the condition, 
+   so the two special rules should cover most situations.
+   #FIXME: We may add more rules to handle others. 
+*/
+//D_Emit(fx, ev, e) :- D_Emit(fy, ev, e), D_Call(fx, fy). 
+
+/* Always Emit */
+//D_Emit(fx, ev, "true") :- D_Emit(fy, ev, "true"), D_Call(fx, fy). 
+/* Might emit, but condition unknown */
+//D_Emit(fx, ev, "") :- D_Emit(fy, ev, ""), D_Call(fx, fy). 
+
+
+/* Transitive closure of the *require* chain.
+   If:
+     + ~fy()~ require condition e to be true
+     + ~fx()~ calls ~fy()~, actual arguments ~[ex]~ matching param list ~[vy]~,
+   Then:
+     => ~fx()~ also requires condition ~e~ to be true 
+   #FIXME: need specialized rules to handle scenarios 
+   where condition substitution needed
+*/
+//D_Require(fx, e) :- D_Require(fy, e), D_Call(fx, fy).
+
+/* HasFn/2 propogates along inheritance chain.
+  If:
+    + contract ~cb~ has function ~f~
+    + contract ~ca~ inherit ~cb~
+    + ~f~ does not have a "private" modifier
+  Then:
+    => contract ~ca~ also has function ~f~
+  #+FIXME: this could cause false positives 
+  since doc facts may not contain info that 
+  function f is private, so this may infer  
+  L1errors (in doc but not in code)
+*/
+// currently we do not have D_Inherit facts
+//D_HasFn(ca, f) :- D_Inherit(ca, cb), D_HasFn(cb, f), !D_FnHashMod(f, "private").
+
+
+/* All documentation facts propogates along D_SeeFn/2 */
+//D_Override(fa, fc) :- D_SeeFn(fa, fb), D_Override(fb, fc).
+
+D_HasParam(ca, fa, v) :- D_SeeFn(ca, fa, cb, fb), D_HasParam(cb, fb, v).
+D_Require(ca, fa, e) :- D_SeeFn(ca, fa, cb, fb), D_Require(cb, fb, e).
+D_Revert(ca, fa, e) :- D_SeeFn(ca, fa, cb, fb), D_Revert(cb, fb, e).
+D_Emit(ca, fa, ev, e) :- D_SeeFn(ca, fa, cb, fb), D_Emit(cb, fb, ev, e).

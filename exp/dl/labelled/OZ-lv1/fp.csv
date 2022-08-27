@@ -1,0 +1,11 @@
+ERC20   _burn   to
+ERC777  _approve        amount
+ERC777  _approve        $Cmp($Literal(owner), $Literal(address(0)), NEQ)
+GovernorCountingSimple  COUNTING_MODE   support
+IGovernor       COUNTING_MODE   support
+ERC777  _approve        owner
+ERC20   _mint   from
+ERC1155 _burn   $Cmp($Literal(from), $Literal(amount), GEQ)
+ERC20Capped     _mint   from
+EnumerableMap	myMap
+EnumerableSet	mySet

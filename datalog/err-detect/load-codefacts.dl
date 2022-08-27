@@ -1,0 +1,67 @@
+/** Copyright 2022 wuxhme (at) gmail.com
+Load code facts
+ */
+#pragma once
+#include "../def.dl"
+
+/* Inherit and Override */
+.decl C_Inherit(ca: Ct, cb: Ct) /* Contract ca inherits contract cb */
+.input C_Inherit(IO=file, filename="codefacts/Inherit.facts")
+
+.decl C_Override(ca: Ct, fa: Fn, cb: Ct, fb: Fn) /* Function fa overrides function fb */
+.input C_Override(IO=file, filename="codefacts/Override.facts")
+
+/* Contract related */
+.decl C_HasStateVar(c: Ct, v: SVar)  /* Contract c has a state variable v */
+.input C_HasStateVar(IO=file, filename="codefacts/StateVar.facts")
+
+.decl C_HasFn(c:Ct, f: Fn)  /* Contract c has a function f */
+.input C_HasFn(IO=file, filename="codefacts/HasFn.facts")
+
+.decl C_CtHasMod(c:Ct, m: Mod) /* Contract c has a modifer m */
+.input C_CtHasMod(IO=file, filename="codefacts/CtHasMod.facts")
+
+.decl C_IsContract(c: Ct)
+.input C_IsContract(IO=file, filename="codefacts/IsContract.facts")
+
+.decl C_IsInterface(c: Ct) /* Contract c is an interface */
+.input C_IsInterface(IO=file, filename="codefacts/IsInterface.facts")
+
+.decl C_IsContractOrInterface(c: Ct)
+C_IsContractOrInterface(c) :- C_IsContract(c).
+C_IsContractOrInterface(c) :- C_IsInterface(c).
+
+/* Function related */
+.decl C_HasParam(c:Ct, f: Fn, p: Param) /* Function f has a parameter p */
+.input C_HasParam(IO=file, filename="codefacts/HasParam.facts")
+
+.decl C_FnHasMod(c: Ct, f: Fn, m: Mod) /* Function f uses a modifier m */
+.input C_FnHasMod(IO=file, filename="codefacts/FnHasMod.facts")
+
+
+/* Relations between entities */
+.decl C_Call(ca: Ct, fa: Fn, vl: ExprList, cb: Ct, fb: Fn, pl: VarList)
+.input C_Call(IO=file, filename="codefacts/Call.facts")
+
+.decl C_Require(c: Ct, f: Fn, e: Expr)
+.input C_Require(IO=file, filename="codefacts/Require.facts")
+
+.decl C_Revert(c: Ct, f: Fn, x: Expr)
+.input C_Revert(IO=file, filename="codefacts/Revert.facts")
+
+.decl C_Emit(c: Ct, f: Fn, ev: Event, e: Expr)
+.input C_Emit(IO=file, filename="codefacts/Emit.facts")
+
+
+.decl C_ExcludeContract(c: Ct)
+.input C_ExcludeContract(IO=file, filename="codefacts/ExcludeContract.facts")
+
+.decl C_ExcludeInterface(c: Ct)
+.input C_ExcludeInterface(IO=file, filename="codefacts/ExcludeInterface.facts")
+
+.decl C_Exclude(c: Ct)
+C_Exclude(c) :- C_ExcludeContract(c).
+C_Exclude(c) :- C_ExcludeInterface(c).
+
+.decl C_IsImplemented(c: Ct, f: Fn)
+.input C_IsImplemented(IO=file, filename="codefacts/IsImplemented.facts")

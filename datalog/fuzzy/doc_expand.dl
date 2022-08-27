@@ -1,0 +1,12 @@
+/** Copyright 2022 wuxhme (at) gmail.com 
+ * Expand doc facts for fuzzy matching
+ */
+
+#pragma once
+
+// cb is subclass of ca; overesitmate, do not consider private
+D_HasFn(cb, f) :- D_HasFn(ca, f), C_Inherit(ca, cb).
+
+// Propogate D_Require/3 along the C_Inherit/2 chain; overestimate, do not consider private
+// if cb inherit ca, then for each ca.f, we suppose cb.f exist and has the same requirements
+D_Require(cb, f, cond) :- D_Require(ca, f, cond), C_Inherit(ca, cb).// C_Override(ca, fa, cb, fb).

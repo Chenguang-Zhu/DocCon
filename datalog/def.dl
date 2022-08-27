@@ -1,0 +1,94 @@
+/** Copyright 2022 wuxhme (at) gmail.com 
+Definitions for smart contract program and documentation
+ */
+
+#pragma once
+
+.type Ct <: symbol  /* contract */
+.type Fn <: symbol  /* function */
+.type Mod <: symbol  /* modifier */
+//.type Expr <: symbol  /* expression */
+.type Var <: symbol  /* variable */
+.type SVar <: Var      /* state variable */
+.type Param <: Var  /* parameter */
+.type Event <: symbol  /* event */
+.type BinCmpOp <: symbol  /* binary comparison */
+.type LogOp <: symbol  /* binary logic operator */
+.type MathOp <: symbol  /* binary arithmetic operator */
+
+//.type PrimitiveExpr <: symbol
+.type Expr = Number { x : number }
+    | Var { v : Var}
+    | Bool {b: symbol}
+    | Cmp {e_1 : Expr, e_2 :Expr, binop: BinCmpOp}
+    | Neg {e: Expr}
+    | Logic {e_1: Expr, e_2: Expr, logop: LogOp}
+    | FnApply {f: Fn, v: ExprList}
+    | DictLookUp {d: Var, k: Expr}
+    | Math { e_1: Expr, e_2: Expr, op: MathOp}
+    | Literal {c: symbol}
+// .type Expr = ComplexExpr | PrimitiveExpr
+
+/** Type for lists of Var(iables) */
+.type VarList = [ head : Var, tail : VarList ]
+/** Type for lists of expressions */
+.type ExprList = [ head : Expr, tail : ExprList ]
+
+
+/* Definitions are moved to prefixed versions 
+ * in load-docfacts.dl and load-codefacts.dl 
+ */
+// .decl Inherit(ca: Ct, cb: Ct) /* Contract ca inherits contract cb */ 
+// .decl Override(fa: Fn, fb: Fn) /* Function fa overrides function fb */
+// 
+// .decl HasStateVar(c: Ct, v: SVar)  /* Contract c has a state variable v */
+// .decl HasFn(c:Ct, f: Fn)  /* Contract c has a function f */
+// .decl CtHasMod(c:Ct, m: Mod) /* Contract c has a modifer m */
+// 
+// .decl HasParam(f: Fn, p: P) /* Function f has a parameter p */
+// .decl FnHasMod(f: Fn, m: Mod) /* Function f uses a modifier m */
+
+/* Function ~fa~ invokes ~fb~ with the list of expression ~vl~ being 
+     actual argument and the list of variables ~pl~ being parameters. 
+   :param fa: the caller
+   :param vl: a list of expressions, type [[ExprList]] 
+   :param fb: the callee
+   :param pl: a list of parameters, type [[VarList]] 
+*/
+// .decl Call(fa: Fn, vl: ExprList, fb: Fn, pl: VarList) 
+
+/* Function f contains require and the condition is e. 
+   :param f: the function which requires 
+   :param e: the required condition
+   Examples:  
+   + len(x) > len(y) => CMP(FnApply("len", "x"), FnApply("len", "y"), "GT")
+   + !exist(x) => NEQ(FnApply("exist", x))
+*/      
+// .decl Require(f: Fn, e: Expr) 
+
+/* !exist(x) */
+/*
+require balance of from is larger than 0
+-> require, from_balance  
+*/
+
+// .decl RevertNoCond(f: Fn) /* (?) Function f contains revert without conditions */
+// .decl RevertBin(f: Fn, x: Expr, y: Expr, op: BinCmp) /* Function f contains revert where revert condition is x \bowtie y */
+// .decl Revert(f: Fn, e: Expr) /* Function f contains revert where revert condition is e (or other expressions) */
+
+/* Function f emits an event ev under condition e 
+   match(e) {
+	true => no condition,
+	""   => there is some condition but unknown (e.g., usually in doc)
+   }
+*/
+//.decl Emit(f: Fn, ev: Event, e: Expr) 
+
+
+/* Doc only */
+// .decl SeeFn(fa: Fn, fb: Fn) /* see description in documentation */
+
+/* Revert(x) :- Revert(y), Call(x, y, _, _). */
+
+/* Require(fa, v) :- Require(fb, x, _), Call(fa, fb, v, x) */
+/* len(x) */

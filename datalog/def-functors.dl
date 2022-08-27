@@ -1,0 +1,4 @@
+#pragma once
+
+.functor lower(x: symbol):symbol
+.functor beginWithUpper(x: symbol):number

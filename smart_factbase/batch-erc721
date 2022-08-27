@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+set -e
+
+rm -rf ../exp/doc_facts/erc721-extension/v0.0.18
+time python3 main.py --lib erc721-extensions --version v0.0.18 --extract-doc ../library-src/erc721-extensions/contracts/WithLimitedSupply.sol
+time python3 main.py --lib erc721-extensions --version v0.0.18 --extract-doc ../library-src/erc721-extensions/contracts/LinearlyAssigned.sol
+time python3 main.py --lib erc721-extensions --version v0.0.18 --extract-doc ../library-src/erc721-extensions/contracts/RandomlyAssigned.sol
+time python3 main.py --lib erc721-extensions --version v0.0.18 --extract-doc ../library-src/erc721-extensions/contracts/standards/HasSecondarySaleFees.sol
+time python3 main.py --lib erc721-extensions --version v0.0.18 --extract-doc ../library-src/erc721-extensions/contracts/WithContractMetaData.sol
+time python3 main.py --lib erc721-extensions --version v0.0.18 --extract-doc ../library-src/erc721-extensions/contracts/WithFreezableMetadata.sol
+time python3 main.py --lib erc721-extensions --version v0.0.18 --extract-doc ../library-src/erc721-extensions/contracts/WithSaleStart.sol
+time python3 main.py --lib erc721-extensions --version v0.0.18 --extract-doc ../library-src/erc721-extensions/contracts/WithTokenPrices.sol
+time python3 main.py --lib erc721-extensions --version v0.0.18 --extract-doc ../library-src/erc721-extensions/contracts/WithWithdrawals.sol
+time python3 main.py --lib erc721-extensions --version v0.0.18 --extract-doc ../library-src/erc721-extensions/contracts/LimitedTokensPerWallet.sol
+time python3 main.py --lib erc721-extensions --version v0.0.18 --extract-doc ../library-src/erc721-extensions/contracts/examples/LinearlyAssignedExample.sol
+time python3 main.py --lib erc721-extensions --version v0.0.18 --extract-doc ../library-src/erc721-extensions/contracts/OnePerWallet.sol
+time python3 main.py --lib erc721-extensions --version v0.0.18 --extract-doc ../library-src/erc721-extensions/contracts/examples/RandomlyAssignedExample.sol
+time python3 main.py --lib erc721-extensions --version v0.0.18 --extract-doc ../library-src/erc721-extensions/contracts/WithFees.sol
+time python3 main.py --lib erc721-extensions --version v0.0.18 --extract-doc ../library-src/erc721-extensions/contracts/WithIPFSMetaData.sol
+time python3 main.py --lib erc721-extensions --version v0.0.18 --extract-doc ../library-src/erc721-extensions/contracts/examples/WithSaleStartExample.sol
+time python3 main.py --lib erc721-extensions --version v0.0.18 --extract-doc ../library-src/erc721-extensions/contracts/WithAdditionalMints.sol
+time python3 main.py --lib erc721-extensions --version v0.0.18 --extract-doc ../library-src/erc721-extensions/contracts/examples/WithIPFSMetaDataExample.sol
+time python3 main.py --lib erc721-extensions --version v0.0.18 --extract-doc ../library-src/erc721-extensions/contracts/WithMarketOffers.sol
+time python3 main.py --lib erc721-extensions --version v0.0.18 --extract-doc ../library-src/erc721-extensions/contracts/examples/WithAdditionalMintsExample.sol
+time python3 main.py --lib erc721-extensions --version v0.0.18 --extract-doc ../library-src/erc721-extensions/contracts/examples/WithMarketOffersExample.sol

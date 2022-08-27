@@ -1,0 +1,30 @@
+#!/bin/bash
+
+python main.py --lib dapphub/ds-roles --version "" --check --contract DSRoles --level 1
+python main.py --lib dapphub/ds-token --version "" --check --contract DSToken --level 1
+python main.py --lib dapphub/ds-guard --version "" --check --contract DSGuard --level 1
+python main.py --lib dapphub/ds-cache --version "" --check --contract DSCache --level 1
+python main.py --lib dapphub/ds-auth --version "" --check --contract DSAuth --level 1
+python main.py --lib dapphub/ds-stop --version "" --check --contract DSStop --level 1
+python main.py --lib dapphub/ds-chief --version "" --check --contract DSChiefApprovals --level 1
+python main.py --lib dapphub/ds-chief --version "" --check --contract DSChief --level 1
+
+
+# python main.py --lib dapphub/ds-roles --version "" --check --contract DSRoles --level 2
+# python main.py --lib dapphub/ds-token --version "" --check --contract DSToken --level 2
+# python main.py --lib dapphub/ds-guard --version "" --check --contract DSGuard --level 2
+# python main.py --lib dapphub/ds-cache --version "" --check --contract DSCache --level 2
+# python main.py --lib dapphub/ds-auth --version "" --check --contract DSAuth --level 2
+# python main.py --lib dapphub/ds-stop --version "" --check --contract DSStop --level 2
+# python main.py --lib dapphub/ds-chief --version "" --check --contract DSChiefApprovals --level 2
+# python main.py --lib dapphub/ds-chief --version "" --check --contract DSChief --level 2
+
+
+# python main.py --lib dapphub/ds-roles --version "" --check --contract DSRoles --level 3
+# python main.py --lib dapphub/ds-token --version "" --check --contract DSToken --level 3
+# python main.py --lib dapphub/ds-guard --version "" --check --contract DSGuard --level 3
+# python main.py --lib dapphub/ds-cache --version "" --check --contract DSCache --level 3
+# python main.py --lib dapphub/ds-auth --version "" --check --contract DSAuth --level 3
+# python main.py --lib dapphub/ds-stop --version "" --check --contract DSStop --level 3
+# python main.py --lib dapphub/ds-chief --version "" --check --contract DSChiefApprovals --level 3
+# python main.py --lib dapphub/ds-chief --version "" --check --contract DSChief --level 3

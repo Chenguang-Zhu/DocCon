@@ -1,0 +1,27 @@
+/** Copyright 2022 wuxhme (at) gmail.com
+ * Detection of L2 errors:  in code, not in doc,
+ *   external: about event/revert/require
+ */
+
+#include "load-docfacts.dl"
+#include "load-codefacts.dl"
+#include "../fuzzy/l2-fuzzy.dl"
+#include "../transitive-rules/code.dl"
+#include "../transitive-rules/doc.dl"
+
+// ignore those class(contracts) ending with Mock or Mocks
+.decl L2Require(c: Ct, f: Fn, e: Expr)
+L2Require(c, f, e) :- C_IsContractOrInterface(c), C_Require(c, f, e), !D_Require(c, f, e), C_HasFn(c, f), !C_NotExistFunc(c, f),
+    !match(".*Mocks?", c), !match(".*Example$", c), !match(".*Test$", c), !C_Exclude(c). //!C_Override(_, _, c, f).
+
+.decl L2Revert(c: Ct, f: Fn, e: Expr)
+L2Revert(c, f, e) :- C_IsContractOrInterface(c), C_Revert(c, f, e), !D_Revert(c, f, e), C_HasFn(c, f),!C_NotExistFunc(c, f),
+    !match(".*Mocks?", c), !match(".*Example$", c), !match(".*Test$", c), !C_Exclude(c). //!C_Override(_, _, c, f).
+
+.decl L2Emit(c: Ct, f: Fn, ev: Event, e: Expr)
+L2Emit(c, f, ev, e) :- C_IsContractOrInterface(c), C_Emit(c, f, ev, e), !D_Emit(c, f, ev, e), C_HasFn(c, f),!C_NotExistFunc(c, f),
+    !match(".*Mocks?", c), !match(".*Example$", c), !match(".*Test$", c), !C_Exclude(c).// !C_Override(_, _, c, f).
+
+.output L2Require
+.output L2Revert
+.output L2Emit

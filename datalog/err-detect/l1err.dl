@@ -1,0 +1,63 @@
+/** Copyright 2022 wuxhme (at) gmail.com 
+ * Detection of L1 errors: in doc, not in code
+ */
+ 
+#include "load-docfacts.dl"
+#include "load-codefacts.dl"
+#include "../fuzzy/l1-fuzzy.dl"
+#include "../transitive-rules/code.dl"
+#include "../transitive-rules/doc.dl"
+#include "../def-functors.dl"
+
+/** L1 errors **/
+/* Inherit and Override */
+.decl L1Inherit(ca: Ct, cb: Ct) /* Contract ca inherits contract cb */
+L1Inherit(ca, cb) :- D_Inherit(ca, cb), !C_Inherit(ca, cb).
+
+.decl L1Override(ca: Ct, fa: Fn, cb: Ct, fb: Fn) /* Function fa overrides function fb */
+L1Override(ca, fa, cb, fb) :- D_Override(ca, fa, cb, fb), !C_Override(ca, fa, cb, fb).
+ 
+/* Contract related */
+.decl L1HasStateVar(c: Ct, v: SVar) /* Contract c has a state variable v */
+L1HasStateVar(c, v) :- D_HasStateVar(c, v), !C_HasStateVar(c, v).
+
+.decl L1HasFn(c:Ct, f: Fn)  /* Contract c has a function f */
+L1HasFn(c, f) :- D_HasFn(c, f), !C_HasFn(c, f), @beginWithUpper(c)=1.
+
+.decl L1CtHasMod(c:Ct, m: Mod) /* Contract c has a modifer m */
+L1CtHasMod(c, m) :- D_CtHasMod(c, m), !C_CtHasMod(c, m).
+
+/* Function related */
+.decl L1HasParam(c: Ct, f: Fn, p: Param) /* Function f has a parameter p */
+L1HasParam(c, f, p) :- D_HasParam(c, f, p), !C_HasParam(c, f, p), p!="".
+
+.decl L1FnHasMod(c: Ct, f: Fn, m: Mod) /* Function f uses a modifier m */
+L1FnHasMod(c, f, m) :- D_FnHasMod(c, f, m), !C_FnHasMod(c, f, m).
+
+
+/* Relations between entities */
+.decl L1Call(ca: Ct, fa: Fn, cb: Ct, fb: Fn) 
+L1Call(ca, fa, cb, fb) :- D_Call(ca, fa, _, cb, fb, _), !C_Call(ca, fa, _, cb, fb, _).
+
+.decl L1Require(c: Ct, f: Fn, e: Expr) 
+L1Require(c, f, e) :- D_Require(c, f, e), !C_IsInterface(c), !C_Require(c, f, e), C_IsImplemented(c, f).
+
+.decl L1Revert(c: Ct, f: Fn, x: Expr)
+L1Revert(c, f, x) :- D_Revert(c, f, x), !C_IsInterface(c), !C_Revert(c, f, x), C_IsImplemented(c, f).
+
+.decl L1Emit(c: Ct, f: Fn, ev: Event, e: Expr) 
+L1Emit(c, f, ev, e) :- D_Emit(c, f, ev, e), !C_IsInterface(c), !C_Emit(c, f, ev, e), C_IsImplemented(c, f).
+
+
+
+.output L1Inherit
+.output L1Override
+.output L1HasStateVar
+.output L1HasFn
+.output L1CtHasMod
+.output L1HasParam
+.output L1FnHasMod
+.output L1Call
+.output L1Require
+.output L1Revert
+.output L1Emit

@@ -1,0 +1,75 @@
+#!/bin/bash
+
+python main.py --lib erc721-extensions --version v0.0.18 --check --contract WithLimitedSupply --level 1
+python main.py --lib erc721-extensions --version v0.0.18 --check --contract LinearlyAssigned --level 1
+python main.py --lib erc721-extensions --version v0.0.18 --check --contract RandomlyAssigned --level 1
+python main.py --lib erc721-extensions --version v0.0.18 --check --contract HasSecondarySaleFees --level 1
+python main.py --lib erc721-extensions --version v0.0.18 --check --contract WithContractMetaData --level 1
+python main.py --lib erc721-extensions --version v0.0.18 --check --contract WithFreezableMetadata --level 1
+python main.py --lib erc721-extensions --version v0.0.18 --check --contract WithSaleStart --level 1
+python main.py --lib erc721-extensions --version v0.0.18 --check --contract WithTokenPrices --level 1
+python main.py --lib erc721-extensions --version v0.0.18 --check --contract WithWithdrawals --level 1
+python main.py --lib erc721-extensions --version v0.0.18 --check --contract LimitedTokensPerWallet --level 1
+python main.py --lib erc721-extensions --version v0.0.18 --check --contract LinearlyAssignedExample --level 1
+python main.py --lib erc721-extensions --version v0.0.18 --check --contract OnePerWallet --level 1
+python main.py --lib erc721-extensions --version v0.0.18 --check --contract RandomlyAssignedExample --level 1
+python main.py --lib erc721-extensions --version v0.0.18 --check --contract WithFees --level 1
+python main.py --lib erc721-extensions --version v0.0.18 --check --contract WithIPFSMetaData --level 1
+python main.py --lib erc721-extensions --version v0.0.18 --check --contract WithSaleStartExample --level 1
+python main.py --lib erc721-extensions --version v0.0.18 --check --contract WithAdditionalMints --level 1
+python main.py --lib erc721-extensions --version v0.0.18 --check --contract WithIPFSMetaDataExample --level 1
+python main.py --lib erc721-extensions --version v0.0.18 --check --contract WithMarketOffers --level 1
+python main.py --lib erc721-extensions --version v0.0.18 --check --contract WithAdditionalMintsExample --level 1
+python main.py --lib erc721-extensions --version v0.0.18 --check --contract WithMarketOffersExample --level 1
+
+
+
+
+
+# python main.py --lib erc721-extensions --version v0.0.18 --check --contract WithLimitedSupply --level 2
+# python main.py --lib erc721-extensions --version v0.0.18 --check --contract LinearlyAssigned --level 2
+# python main.py --lib erc721-extensions --version v0.0.18 --check --contract RandomlyAssigned --level 2
+# python main.py --lib erc721-extensions --version v0.0.18 --check --contract HasSecondarySaleFees --level 2
+# python main.py --lib erc721-extensions --version v0.0.18 --check --contract WithContractMetaData --level 2
+# python main.py --lib erc721-extensions --version v0.0.18 --check --contract WithFreezableMetadata --level 2
+# python main.py --lib erc721-extensions --version v0.0.18 --check --contract WithSaleStart --level 2
+# python main.py --lib erc721-extensions --version v0.0.18 --check --contract WithTokenPrices --level 2
+# python main.py --lib erc721-extensions --version v0.0.18 --check --contract WithWithdrawals --level 2
+# python main.py --lib erc721-extensions --version v0.0.18 --check --contract LimitedTokensPerWallet --level 2
+# python main.py --lib erc721-extensions --version v0.0.18 --check --contract LinearlyAssignedExample --level 2
+# python main.py --lib erc721-extensions --version v0.0.18 --check --contract OnePerWallet --level 2
+# python main.py --lib erc721-extensions --version v0.0.18 --check --contract RandomlyAssignedExample --level 2
+# python main.py --lib erc721-extensions --version v0.0.18 --check --contract WithFees --level 2
+# python main.py --lib erc721-extensions --version v0.0.18 --check --contract WithIPFSMetaData --level 2
+# python main.py --lib erc721-extensions --version v0.0.18 --check --contract WithSaleStartExample --level 2
+# python main.py --lib erc721-extensions --version v0.0.18 --check --contract WithAdditionalMints --level 2
+# python main.py --lib erc721-extensions --version v0.0.18 --check --contract WithIPFSMetaDataExample --level 2
+# python main.py --lib erc721-extensions --version v0.0.18 --check --contract WithMarketOffers --level 2
+# python main.py --lib erc721-extensions --version v0.0.18 --check --contract WithAdditionalMintsExample --level 2
+# python main.py --lib erc721-extensions --version v0.0.18 --check --contract WithMarketOffersExample --level 2
+
+
+
+
+
+# python main.py --lib erc721-extensions --version v0.0.18 --check --contract WithLimitedSupply --level 3
+# python main.py --lib erc721-extensions --version v0.0.18 --check --contract LinearlyAssigned --level 3
+# python main.py --lib erc721-extensions --version v0.0.18 --check --contract RandomlyAssigned --level 3
+# python main.py --lib erc721-extensions --version v0.0.18 --check --contract HasSecondarySaleFees --level 3
+# python main.py --lib erc721-extensions --version v0.0.18 --check --contract WithContractMetaData --level 3
+# python main.py --lib erc721-extensions --version v0.0.18 --check --contract WithFreezableMetadata --level 3
+# python main.py --lib erc721-extensions --version v0.0.18 --check --contract WithSaleStart --level 3
+# python main.py --lib erc721-extensions --version v0.0.18 --check --contract WithTokenPrices --level 3
+# python main.py --lib erc721-extensions --version v0.0.18 --check --contract WithWithdrawals --level 3
+# python main.py --lib erc721-extensions --version v0.0.18 --check --contract LimitedTokensPerWallet --level 3
+# python main.py --lib erc721-extensions --version v0.0.18 --check --contract LinearlyAssignedExample --level 3
+# python main.py --lib erc721-extensions --version v0.0.18 --check --contract OnePerWallet --level 3
+# python main.py --lib erc721-extensions --version v0.0.18 --check --contract RandomlyAssignedExample --level 3
+# python main.py --lib erc721-extensions --version v0.0.18 --check --contract WithFees --level 3
+# python main.py --lib erc721-extensions --version v0.0.18 --check --contract WithIPFSMetaData --level 3
+# python main.py --lib erc721-extensions --version v0.0.18 --check --contract WithSaleStartExample --level 3
+# python main.py --lib erc721-extensions --version v0.0.18 --check --contract WithAdditionalMints --level 3
+# python main.py --lib erc721-extensions --version v0.0.18 --check --contract WithIPFSMetaDataExample --level 3
+# python main.py --lib erc721-extensions --version v0.0.18 --check --contract WithMarketOffers --level 3
+# python main.py --lib erc721-extensions --version v0.0.18 --check --contract WithAdditionalMintsExample --level 3
+# python main.py --lib erc721-extensions --version v0.0.18 --check --contract WithMarketOffersExample --level 3

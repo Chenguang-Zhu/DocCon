@@ -1,0 +1,84 @@
+/*** Document Template ***/
+/*	<In f,'Emits a E event'>
+	<In f,'Emits an E event'>
+	<In f,'emits a E event'>
+	<In f,'emits an E event'> */
+Emit(f, E, "true").
+
+// <In f,'Emits E1 and E2 events'> 
+Emit(f, E1, "true").
+Emit(f, E2, "true").
+
+/* <In f,'Might emit a E event'> 
+   <In f,'Might emit an E event'> */
+Emit(f, E, "").
+
+// <In f,'Fires a E event'>
+Emit(f, E, "true").
+
+// <In f,'Require X1 must be strictly less than X2'>
+Require(f, $CMP(X1, X2, "LT"))
+
+// <In f,'Require X1 cannot be greater than X2'>
+Require(f, $CMP(X1, X2, "LEQ"))
+
+// <In f,'Require X1 must be at least X2'>
+Require(f, $CMP(X1, X2, "GEQ"))
+
+// <In f,'Require X1 cannot be X2'>
+Require(f, $CMP(X1, X2, "NEQ"))
+
+// <In f,'Require X1 must implement X2'>
+Require(f, $CMP(X1, X2, "NEQ"))
+  
+15
+	<In f,'Require X1 must be owned by X2'>
+16
+	<In f,'Require X1 cannot be the X2 address'>
+17
+	<In f,'Require X1 have a balance of X2'>
+18
+	<In f,'Require X1 have allownance for X2'>
+19
+	<In f,'Require X must be already minted'>
+20
+	<In f,'Require X must exist'>
+21
+	<In f,'Require X must not exist'>
+22
+	<In f,'Requires X'>
+23
+	
+<In f,'Reverts with ... if X1 is greater than X2'>
+24
+	<In f,'Reverts with ... if X1 is at least X2'>
+25
+	<In f,'Reverts with ... if X1 is less than X2'>
+26
+	<In f,'Reverts with ... if X1 is the X2 address'>
+27
+	<In f,'Reverts with ... if X1 does not exist'>
+28
+	<In f,'Reverts with ... if X is empty'>
+29
+	<In f,'Guaranteed by the M modifier'>
+30
+	<In f,'Only allow ... if M' >
+31
+	<In f,'Only allow ... if within the allowed M'>
+32
+	
+<In f,'...{Contract_name.Function_name}...'>
+33
+	<In f,'@param Parameter_name'>
+34
+	<In f,'...`Parameter_name`...'>
+35
+	<In f,'Overriden from F2'>
+36
+	<In f,'Implement C Contract'>
+37
+	<In f,'@dev See {F2}'>
+/* In f, Emits a E Event
+   In f, Emits an E Event
+   In f, emits a E Event */

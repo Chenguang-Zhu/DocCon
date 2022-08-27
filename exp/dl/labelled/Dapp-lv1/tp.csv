@@ -1,0 +1,2 @@
+DSChiefApprovals	free	LogLockFree	$Bool(True)
+DSChiefApprovals	lock	LogLockFree	$Bool(True)
