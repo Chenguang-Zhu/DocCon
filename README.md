@@ -357,3 +357,16 @@ code.
 
 You can find out how to interpret other CSV files by checking Datalog files in
 `datalog/err-detect/` and related descriptions in the paper.
+
+---
+
+If you would like to use DocCon in your research, please cite our ASE'22 paper.
+
+```latex
+@inproceedings{ZhuETAL2022DocCon,
+  author = {Zhu, Chenguang and Liu, Ye and Wu, Xiuheng and Li, Yi},
+  booktitle = {Proceedings of the 37th IEEE/ACM International Conference on Automated Software Engineering},
+  title = {Identifying Solidity Smart Contract API Documentation Errors},
+  year = {2022}
+}
+```
