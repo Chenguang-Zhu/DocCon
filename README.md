@@ -2,13 +2,13 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7034128.svg)](https://doi.org/10.5281/zenodo.7034128)
 
-The latest version of this repo can be found at: https://github.com/uxhg/doccon-artifact
+The latest version of this repo can be found at: https://github.com/Chenguang-Zhu/DocCon
 
 DocCon is a tool for detecting inconsistencies between documentations and the corresponding code for
 Solidity smart contract libraries.
 
 This repo provides a docker to replicate evaluation done in the
-[ASE 2022 paper](https://wuxh.info/static/pub/doccon.pdf).
+[ASE 2022 paper](https://personal.ntu.edu.sg/yi_li/files/Zhu2022ISS.pdf).
 
 
 ## Prerequisites
@@ -19,8 +19,8 @@ This repo provides a docker to replicate evaluation done in the
 ## Installation
 Clone this repo and build Docker image:
 ```sh
-git clone https://github.com/Chenguang-Zhu/DocCon_Artifact.git
-cd DocCon_Artifact
+git clone https://github.com/Chenguang-Zhu/DocCon.git
+cd DocCon
 sudo docker build -t doccon .
 ```
 Time estimation: 20–30 minutes (on modern hardware with good network condition)
